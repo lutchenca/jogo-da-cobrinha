@@ -12,6 +12,8 @@ function criarBG() {
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
+let direction = "right";
+
 function criarCobrinha() {
     for(i=0; i < snake.length; i++){
         context.fillStyle = "green";
@@ -19,5 +21,26 @@ function criarCobrinha() {
     }
 }
 
-criarBG();
-criarCobrinha();
+function iniciarJogo () {
+    criarBG();
+    criarCobrinha();
+
+    let snakeX =  snake[0].x; // posicao inicial
+    let snakeY = snake[0].y;
+
+    if(direction == "right") snakeX += box;    //coordenadas da cobra
+    if(direction == "left") snakeX -= box;    //coordenadas da cobra
+    if(direction == "up") snakeY -= box;    //coordenadas da cobra
+    if(direction == "down") snakeY += box;
+    
+    snake.pop();
+
+    let newHead = {
+        x: snakeX,
+        y: snakeY
+    }
+
+    snake.unshift(newHead);
+}
+
+let jogo = setInterval(iniciarJogo, 100);
